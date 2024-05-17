@@ -15,7 +15,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 function App(): React.JSX.Element {
   const loadTracks = async()=>{
     await TrackPlayer.setupPlayer({autoHandleInterruptions: true})
-    await TrackPlayer.add([...(playlist as Track[])])
 }
 useEffect(()=>{
     loadTracks()

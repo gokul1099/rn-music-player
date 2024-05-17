@@ -9,6 +9,7 @@ import { useNavigation } from '@react-navigation/native'
 const TrackPlayerFooter = () => {
     const track = useActiveTrack()
     const navigation = useNavigation()
+    
     return (
     <TouchableOpacity style={style.container} onPress={()=>navigation.navigate("Player",{track})}>
         <View style={style.innerContainer1}>
@@ -19,10 +20,10 @@ const TrackPlayerFooter = () => {
             </View>
             <View style={{flex:0.5}}>
                 <View style={style.textContentContainer}>
-                    <CustomText variant='primary'>
+                    <CustomText variant='primary' style={{fontSize:18}}>
                         {track?.title}
                     </CustomText>
-                    <CustomText variant='secondary'>
+                    <CustomText variant='secondary' style={{fontSize:16}}>
                         {track?.artist}
                     </CustomText>
                 </View>                

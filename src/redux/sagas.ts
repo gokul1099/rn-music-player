@@ -1,7 +1,7 @@
 import { all } from "redux-saga/effects"
-import HomeSaga from "./modules/home/sagas"
+import PlayerSaga from "./modules/player/sagas"
 function *rootSaga(){
-    yield all([])
+yield all([PlayerSaga()])
 }
 
 export default rootSaga

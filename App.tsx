@@ -7,12 +7,20 @@
 
 import React from 'react';
 import { SafeAreaView,StyleSheet } from 'react-native';
-import RootNavigator from './src/navigator/RootNavigator';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import RootNavigator from "./src/navigator/RootNavigator"
+import { Provider } from 'react-redux';
+import {store,persistedStore} from "./src/redux/index"
+import { PersistGate } from 'redux-persist/integration/react';
+
 function App(): React.JSX.Element {
   return (
     <SafeAreaView style={{flex:1}}>
-      <RootNavigator />
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistedStore}>
+          <RootNavigator />
+        </PersistGate>
+      </Provider>
+      
     </SafeAreaView>
   );
 }

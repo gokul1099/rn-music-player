@@ -9,7 +9,7 @@ export default function RootNavigator(){
     return(
         <NavigationContainer>
             <StackNavigator.Navigator>
-                <StackNavigator.Screen name="Home" component={HomeContainer}/>
+                <StackNavigator.Screen options={{headerTitle:"MusicPlayer"}} name="Home" component={HomeContainer}/>
                 <StackNavigator.Screen name="Player" component={PlayerContainer}/>
             </StackNavigator.Navigator>
         </NavigationContainer>

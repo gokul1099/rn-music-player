@@ -12,7 +12,7 @@ interface TextVariant {
   const variants: Record<string, TextVariant> = {
     primary: {
       fontSize: Theme.fontSize.primary,
-      color: Theme.colors.white,
+      color: Theme.colors.secondary,
       fontWeight:"bold"
     },
     secondary: {

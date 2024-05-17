@@ -6,8 +6,8 @@ export const Theme = {
         white:"#ffffff"
     },
     fontSize:{
-        primary:24,
-        secondary:22,
+        primary:22,
+        secondary:20,
         tertiary:18
     }
 }

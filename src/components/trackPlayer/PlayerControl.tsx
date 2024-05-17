@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import TrackPlayer,{usePlaybackState,useIsPlaying} from 'react-native-track-player'
 import PlayIcon from '../../assets/icons/PlayIcon'
 import PauseIcon from '../../assets/icons/PauseIcon'
@@ -10,6 +10,11 @@ interface PlayerControlInterface{
 }
 const PlayerControl = ({type}:PlayerControlInterface) => {
     const  {playing,bufferingDuringPlay} = useIsPlaying()
+    const getQueue = async()=>{
+        const queue =await TrackPlayer.getQueue()
+        console.log(queue,"qqq")
+    }
+    
   return (
     <View style={{flex:1,justifyContent:"center",alignItems:"center"}}>
         {
@@ -20,7 +25,7 @@ const PlayerControl = ({type}:PlayerControlInterface) => {
                         {
                             type == "expand" ? 
                             (
-                                <TouchableOpacity onPress={()=>TrackPlayer.skipToNext()}>
+                                <TouchableOpacity onPress={()=>TrackPlayer.skipToPrevious()}>
                                     <PrevIcon />
                                 </TouchableOpacity>
                                 
@@ -36,7 +41,7 @@ const PlayerControl = ({type}:PlayerControlInterface) => {
                         {
                             type == "expand" ? 
                             (
-                                <TouchableOpacity onPress={()=>TrackPlayer.skipToPrevious()}>
+                                <TouchableOpacity onPress={()=>TrackPlayer.skipToNext()}>
                                     <NextIcon />
                                 </TouchableOpacity>
                                 

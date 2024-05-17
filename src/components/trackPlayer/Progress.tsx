@@ -3,14 +3,19 @@ import React from 'react'
 import TrackPlayer, { useProgress } from 'react-native-track-player'
 import Slider from '@react-native-community/slider'
 import { Theme } from '../../utils/theme'
-const Progress = () => {
+
+
+interface IProgress{
+  height:number
+}
+const Progress = ({height}:IProgress) => {
     const {position,duration} = useProgress()
     const progressBarWidth = Dimensions.get('window').width * 0.92;
 
   return (
     <View >
       <Slider 
-        style={{height:20,width:progressBarWidth}}
+        style={{height,width:progressBarWidth}}
         value={position}
         minimumValue={0}
         maximumValue={duration}

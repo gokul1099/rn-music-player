@@ -30,7 +30,10 @@ export default function RootNavigator(){
                         </TouchableOpacity>
                     )
                 })}/>
-                <StackNavigator.Screen options={{headerShown:false}} name="Player" component={PlayerContainer}/>
+                <StackNavigator.Screen options={{
+                    headerStyle,
+                    headerTitleStyle:{color:Theme.colors.white, fontSize:Theme.fontSize.primary, fontWeight:"bold"}
+                    }} name="Player" component={PlayerContainer}/>
                 <StackNavigator.Screen options={
                     {headerTitle:"Search",headerStyle,
                     headerTitleStyle:{color:Theme.colors.white, fontSize:Theme.fontSize.primary, fontWeight:"bold"},

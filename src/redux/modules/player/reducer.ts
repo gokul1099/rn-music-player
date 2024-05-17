@@ -28,6 +28,22 @@ const initialState = {
     }
 }
 
+const transformResponse=(data:any)=>{
+   const newResponse =  data?.tracks?.items?.map((item)=>{
+        const updated = {
+            id:item?.id,
+            url:item?.preview_url,
+            duration: Math.floor(item?.duration_ms/1000),
+            title: item?.name,
+            artist:item?.artists?.map((item)=>item?.name)?.join(","),
+            album:item?.album?.name,
+            artwork: item?.album?.images[0]?.url,
+        }
+        return updated
+    })
+    return newResponse
+}
+
 const reducer = (state=initialState, action:IAction)=>{
     switch(action.type){
         case GET_TRACK_DETAILS:
@@ -45,7 +61,7 @@ const reducer = (state=initialState, action:IAction)=>{
                 ...state,
                 trackDetails:{
                     isFetching: false,
-                    data: action.payload,
+                    data: transformResponse(action.data),
                     isFailure: false,
                     isSuccess:true
                 }
@@ -55,7 +71,7 @@ const reducer = (state=initialState, action:IAction)=>{
                     ...state,
                     trackDetails:{
                         isFetching: false,
-                        data: action.payload,
+                        data: action.data,
                         isFailure: true,
                         isSuccess:false
                     }
@@ -75,7 +91,7 @@ const reducer = (state=initialState, action:IAction)=>{
                 ...state,
                 artistDetails:{
                     isFetching: false,
-                    data: action.payload,
+                    data:transformResponse(action.data),
                     isFailure: false,
                     isSuccess:true
                 }
@@ -85,7 +101,7 @@ const reducer = (state=initialState, action:IAction)=>{
                     ...state,
                     artistDetails:{
                         isFetching: false,
-                        data: action.payload,
+                        data: action.data,
                         isFailure: true,
                         isSuccess:false
                     }
@@ -105,7 +121,7 @@ const reducer = (state=initialState, action:IAction)=>{
                 ...state,
                 albumDetails:{
                     isFetching: false,
-                    data: action.payload,
+                    data: transformResponse(action.data),
                     isFailure: false,
                     isSuccess:true
                 }
@@ -115,7 +131,7 @@ const reducer = (state=initialState, action:IAction)=>{
                     ...state,
                     albumDetails:{
                         isFetching: false,
-                        data: action.payload,
+                        data: action.data,
                         isFailure: true,
                         isSuccess:false
                     }
@@ -135,7 +151,7 @@ const reducer = (state=initialState, action:IAction)=>{
                 ...state,
                 searchResults:{
                     isFetching: false,
-                    data: action.data,
+                    data: transformResponse(action.data),
                     isFailure: false,
                     isSuccess:true
                 }

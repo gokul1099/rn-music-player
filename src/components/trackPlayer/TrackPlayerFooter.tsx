@@ -32,7 +32,7 @@ const TrackPlayerFooter = () => {
                 <PlayerControl type="toggled"/>
             </View>
         </View>
-        <Progress />
+        <Progress height={20}/>
 
     </TouchableOpacity>
   )

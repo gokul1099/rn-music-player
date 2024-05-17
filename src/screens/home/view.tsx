@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from 'react-native'
+import { View, Text, FlatList,StyleSheet } from 'react-native'
 import React from 'react'
 import { Theme } from '../../utils/theme'
 import TrackPlayerFooter from '../../components/trackPlayer/TrackPlayerFooter'
@@ -9,7 +9,7 @@ interface IHome{
 const HomeView = ({tracks}:IHome) => {
   
   return (
-    <View style={{flex:1,backgroundColor:Theme.colors.secondary}}>
+    <View style={Style.container}>
       <FlatList 
         data={tracks}
         renderItem={({item,index})=><TrackItem {...item} index={index}/>}
@@ -18,5 +18,9 @@ const HomeView = ({tracks}:IHome) => {
     </View>
   )
 }
+
+const Style=StyleSheet.create({
+  container:{flex:1,backgroundColor:Theme.colors.secondary}
+})
 
 export default HomeView

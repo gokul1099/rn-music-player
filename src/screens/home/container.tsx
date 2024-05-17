@@ -8,7 +8,7 @@ const HomeContainer=()=>{
     const actions = useActions({searchTrack})
     const {searchResults}=useSelector(store=>store.player)
     useEffect(()=>{
-        actions.searchTrack({query:`q=tamil%20songs&type=track`})
+        actions.searchTrack({query:`q=yuvan&type=track%2Cartist`})
     },[])
 
     useEffect(()=>{

@@ -24,7 +24,10 @@ const TrackItem = (track:ITrackItem) => {
   return (
     <TouchableOpacity style={Style.container} onPress={onPressTrack}>
       <View style={{flex:0.2}}>
-        <Image source={{uri:track.artwork}} style={{height:"100%",width:"100%"}}/>
+        {
+          track?.artwork &&  <Image source={{uri:track.artwork}} style={{height:"100%",width:"100%"}}/>
+
+        }
       </View>
       <View style={Style.contentContainer}>
             <CustomText variant='primary' style={{color:"white",fontSize:18}}>{track.title}</CustomText>

@@ -30,7 +30,7 @@ interface TextVariant {
   const CustomText: React.FC<TextProps> = ({ children, variant = 'primary', style }) => {
     const textStyle = { ...variants[variant], ...style }; // Combine variant and custom styles
   
-    return <Text style={textStyle}>{children}</Text>;
+    return <Text ellipsizeMode="tail" numberOfLines={2} style={textStyle}>{children}</Text>;
   };
 
 

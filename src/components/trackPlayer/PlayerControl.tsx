@@ -12,7 +12,6 @@ const PlayerControl = ({type}:PlayerControlInterface) => {
     const  {playing,bufferingDuringPlay} = useIsPlaying()
     const getQueue = async()=>{
         const queue =await TrackPlayer.getQueue()
-        console.log(queue,"qqq")
     }
     
   return (

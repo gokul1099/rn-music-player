@@ -1,10 +1,20 @@
-import { View, Text } from 'react-native'
+import { View, Text,TextInput,FlatList } from 'react-native'
 import React from 'react'
+import { Theme } from '../../utils/theme'
+import TrackItem from '../../components/TrackItem'
 
-const SearchScreen = () => {
+interface ISearchScreen{
+  startSearch:(query:string)=>any,
+  searchResults:any
+}
+const SearchScreen = ({startSearch,searchResults}:ISearchScreen) => {
   return (
     <View>
-      <Text>SearchScreen</Text>
+        <TextInput style={{backgroundColor:Theme.colors.text}} placeholder='Search for artist, track ...' onChangeText={(text)=>startSearch(text)}/>
+        <FlatList
+        data={searchResults}
+        renderItem={({item,index})=><TrackItem {...item} index={index}/>}
+        />
     </View>
   )
 }

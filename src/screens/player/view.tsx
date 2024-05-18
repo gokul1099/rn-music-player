@@ -12,7 +12,6 @@ const PlayerView = () => {
   const route = useRoute()
   const track = useActiveTrack()
   const {downloadFile} = useDownloadTrack()
-  
   return (
     <View style={{flex:1}}>
         
@@ -26,9 +25,13 @@ const PlayerView = () => {
             <CustomText variant='primary' style={{color:Theme.colors.white}}> {track?.title} </CustomText>
             <CustomText variant='secondry' style={{color:Theme.colors.white}}>{track?.artist}</CustomText>
           </View>
+         {
+          track?.url?.includes("https") && 
           <TouchableOpacity style={{flex:0.1}} onPress={()=>downloadFile(track?.url, track?.title)}>
             <DownloadIcon />
           </TouchableOpacity>
+         }
+          
         </View>
         <View style={{flex:0.2}}>
           <Progress height={100}/>

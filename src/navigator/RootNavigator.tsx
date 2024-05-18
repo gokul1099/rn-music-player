@@ -8,7 +8,7 @@ import DownloadsContainer from "../screens/downloads/container"
 import { Theme } from "../utils/theme"
 import SearchIcons from "../assets/icons/SearchIcons"
 import { AppState, TouchableOpacity,View } from "react-native"
-import TrackPlayer,{isPlaying} from 'react-native-track-player';
+import TrackPlayer,{useIsPlaying} from 'react-native-track-player';
 import { storeCurrentTrack } from "../redux/modules/localState/actions"
 import { useActions } from "../utils/useActions"
 import { useSelector } from "react-redux"
@@ -20,20 +20,24 @@ export default function RootNavigator(){
         color:Theme.colors.white
     }
     const appState = React.useRef(AppState.currentState)
-    const isTrackPlaying = isPlaying()
+    const {playing} = useIsPlaying()
     const actions = useActions({storeCurrentTrack})
     const {trackDetails} = useSelector(state=>state.localState)
+    const setLastPlayedTrack = async()=>{
+        if(!playing && trackDetails){
+            if(trackDetails?.index!=0){
+                await TrackPlayer.add(trackDetails?.track,0)
+            }
+                await TrackPlayer.seekTo(trackDetails?.position)
+        }
+        
+    }
     useEffect(()=>{
+        
         const subscription = AppState.addEventListener("change",async(nextAppState)=>{
-            if (appState.current.match(/inactive|background/) && nextAppState === 'active') {
-                
-                if(!isTrackPlaying){
-                    await TrackPlayer.add(trackDetails?.track,1)
-                    await TrackPlayer.skip(1)
-                    await TrackPlayer.seekTo(trackDetails?.position)
-                }
-              } else if (appState.current === 'active' && nextAppState.match(/inactive|background/)) {
+             if (appState.current === 'active' && nextAppState.match(/inactive|background/)) {
                 const activeTrack = await TrackPlayer.getActiveTrack()
+                console.log(activeTrack,"acs")
                 const position = await TrackPlayer.getProgress()
                 const index = await TrackPlayer.getActiveTrackIndex()
                 actions.storeCurrentTrack({track: activeTrack, position:position?.position, index})
@@ -41,7 +45,7 @@ export default function RootNavigator(){
               appState.current = AppState.currentState
           })
 
-
+          setLastPlayedTrack()
           return ()=>{
             subscription.remove()
           }

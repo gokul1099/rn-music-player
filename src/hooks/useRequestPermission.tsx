@@ -1,9 +1,10 @@
 import React from "react";
-import { Alert, PermissionsAndroid,ToastAndroid } from "react-native";
+import { Alert, PermissionsAndroid,Platform,ToastAndroid } from "react-native";
 
 
 const useRequestPermission =()=>{
     const checkPermission = async()=>{
+        if(Platform.Version <33){
         const granted = await PermissionsAndroid.request(
             PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
             {
@@ -30,6 +31,9 @@ const useRequestPermission =()=>{
         else{
             return true
         }
+    }else{
+        return true
+    }
 
     }
 

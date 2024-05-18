@@ -7,6 +7,7 @@ import { useRoute } from '@react-navigation/native'
 import CustomText from '../../components/text/Text'
 import DownloadIcon from '../../assets/icons/DownloadIcon'
 import useDownloadTrack from '../../hooks/useDownloadTrack'
+import { Theme } from '../../utils/theme'
 const PlayerView = () => {
   const route = useRoute()
   const track = useActiveTrack()
@@ -22,8 +23,8 @@ const PlayerView = () => {
         </View>
         <View style={Styles.contentContainer}>
           <View style={Styles.titleContent}>
-            <CustomText variant='primary'> {track?.title} </CustomText>
-            <CustomText variant='secondry'>{track?.artist}</CustomText>
+            <CustomText variant='primary' style={{color:Theme.colors.white}}> {track?.title} </CustomText>
+            <CustomText variant='secondry' style={{color:Theme.colors.white}}>{track?.artist}</CustomText>
           </View>
           <TouchableOpacity style={{flex:0.1}} onPress={()=>downloadFile(track?.url, track?.title)}>
             <DownloadIcon />

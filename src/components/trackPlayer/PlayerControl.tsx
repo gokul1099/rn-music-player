@@ -46,7 +46,7 @@ const PlayerControl = ({type}:PlayerControlInterface) => {
                     </View>
                     <TouchableOpacity onPress={onClickPlay}>
                         {
-                            playing ? <PauseIcon/> : <PlayIcon />
+                            playing ? <PauseIcon color={type === "toggled" ? "#000000" : "#ffffff" }/> : <PlayIcon color={type === "toggled" ? "#000000" : "#ffffff"}/>
                         }
                     </TouchableOpacity>
                     <View>

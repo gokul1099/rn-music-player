@@ -13,7 +13,7 @@ const SearchScreen = ({startSearch,searchResults}:ISearchScreen) => {
         <TextInput style={{backgroundColor:Theme.colors.text}} placeholder='Search for artist, track ...' onChangeText={(text)=>startSearch(text)}/>
         <FlatList
         data={searchResults}
-        renderItem={({item,index})=><TrackItem {...item} index={index}/>}
+        renderItem={({item,index})=><TrackItem source="Search" {...item} index={index}/>}
         />
     </View>
   )

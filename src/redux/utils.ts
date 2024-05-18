@@ -45,9 +45,7 @@ const getToken=async()=>{
             }
             
         )
-        console.log("Calling get Token method")
         const {access_token,expires_in} = response?.data
-        console.log(access_token,"got access token")
         await AsyncStorage.setItem("token",access_token)
         await AsyncStorage.setItem("expireTime",(Date.now() + expires_in *100).toString())
         return access_token
@@ -65,14 +63,25 @@ axiosHandler.interceptors.request.use(
       }
       else{
         const accessToken = await getToken()
-        console.log("Refreshing token")
         config.headers.Authorization = `Bearer ${accessToken}`
       }
       return config
     },
     (error) => Promise.reject(error)
   );
-
+axiosHandler.interceptors.response.use(
+    (response)=>{return response},
+    async(error)=>{
+        const originalRequest = error?.config
+        if(error?.response?.status == 401){
+            const accessToken = await getToken()
+            if(accessToken){
+                originalRequest.headers.Authorization = `Bearer ${accessToken}`
+                return axiosHandler(originalRequest)
+            }
+        }
+    }
+)
 export const apiHandler = async(payload)=>{
     const headers = {
         'Content-Type': "application/json",

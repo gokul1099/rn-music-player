@@ -2,6 +2,7 @@ import { View, Text,Image ,StyleSheet, Touchable, TouchableOpacity} from 'react-
 import React from 'react'
 import CustomText from './text/Text'
 import TrackPlayer, { useActiveTrack } from 'react-native-track-player'
+import { useNavigation } from '@react-navigation/native'
 
 interface ITrackItem{
     url:string,
@@ -11,15 +12,25 @@ interface ITrackItem{
     id:string,
     title:string,
     artwork:string,
-    index:number
+    index:number,
+    source:string
 }
 
 const TrackItem = (track:ITrackItem) => {
     const activeTrack = useActiveTrack()
+    const navigation = useNavigation()
   const onPressTrack = async()=>{
-    if(activeTrack?.id != track?.id){
+    if(track.source === "Search"){
+      await TrackPlayer.add(track,1)
+      await TrackPlayer.skip(1)
+      navigation.navigate("Player")
+      
+    }else{
+      if(activeTrack?.id != track?.id){
         await TrackPlayer.skip(track.index)
     }
+    }
+    
   }
   return (
     <TouchableOpacity style={Style.container} onPress={onPressTrack}>

@@ -8,14 +8,15 @@ const sagaMiddleWare = createSagaMiddleWare()
 const persistConfig = {
     key: "root",
     storage: AsyncStorage,
-    whitelist:[]
+    whitelist:["localState"]
 }
 
 
 const middleware = [sagaMiddleWare]
+const persistedReducer = persistReducer(persistConfig,rootReducers)
+
 const composeMiddleWare = applyMiddleware(...middleware)
 const configureStore = (initialState:any)=>{
-    const persistedReducer = persistReducer(persistConfig,rootReducers)
     const store = createStore(persistedReducer, initialState,composeMiddleWare)
     const persistedStore = persistStore(store)
     sagaMiddleWare.run(rootSaga)

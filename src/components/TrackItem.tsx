@@ -6,14 +6,14 @@ import { useNavigation } from '@react-navigation/native'
 
 interface ITrackItem{
     url:string,
-    album:string,
+    album?:string,
     artist:string,
-    duration:number,
-    id:string,
+    duration?:number,
+    id?:string,
     title:string,
-    artwork:string,
+    artwork?:string,
     index:number,
-    source:string
+    source?:string
 }
 
 const TrackItem = (track:ITrackItem) => {
@@ -23,6 +23,7 @@ const TrackItem = (track:ITrackItem) => {
     if(track.source === "Search"){
       await TrackPlayer.add(track,1)
       await TrackPlayer.skip(1)
+      TrackPlayer.play()
       navigation.navigate("Player")
       
     }else{
@@ -36,7 +37,7 @@ const TrackItem = (track:ITrackItem) => {
     <TouchableOpacity style={Style.container} onPress={onPressTrack}>
       <View style={{flex:0.2}}>
         {
-          track?.artwork &&  <Image source={{uri:track.artwork}} style={{height:"100%",width:"100%"}}/>
+          track?.artwork &&  <Image source={{uri:track.artwork || "https://picsum.photos/200/300"}} style={{height:"100%",width:"100%"}}/>
 
         }
       </View>

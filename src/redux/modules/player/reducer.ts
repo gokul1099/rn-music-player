@@ -1,4 +1,4 @@
-import { GET_TRACK_DETAILS, GET_ALBUM_DETAILS, GET_ARTIST_DETAILS, SEARCH } from './types';
+import { GET_TRACK_DETAILS, GET_ALBUM_DETAILS, GET_ARTIST_DETAILS, SEARCH,STORE_LOCAL_SONGS } from './types';
 import { IAction } from "../../interfaces";
 import { success,failure } from "../../utils";
 const initialState = {
@@ -25,6 +25,9 @@ const initialState = {
         data: null,
         isFailure: false,
         isSuccess:false
+    },
+    localSongs:{
+        data:null
     }
 }
 
@@ -46,6 +49,13 @@ const transformResponse=(data:any)=>{
 
 const reducer = (state=initialState, action:IAction)=>{
     switch(action.type){
+        case STORE_LOCAL_SONGS:
+            return {
+                ...state,
+                localSongs:{
+                    data: action.payload,
+                }
+            }
         case GET_TRACK_DETAILS:
             return {
                 ...state,

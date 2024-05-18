@@ -3,18 +3,23 @@ import React from 'react'
 import { Theme } from '../../utils/theme'
 import TrackPlayerFooter from '../../components/trackPlayer/TrackPlayerFooter'
 import TrackItem from '../../components/TrackItem'
+import CustomText from '../../components/text/Text'
+import { useSelector } from 'react-redux'
 interface IHome{
   tracks:any
 }
 const HomeView = ({tracks}:IHome) => {
-  
   return (
     <View style={Style.container}>
       <FlatList 
+        style={{marginBottom:100}}
         data={tracks}
         renderItem={({item,index})=><TrackItem {...item} index={index}/>}
       />
-      <TrackPlayerFooter />
+      {
+        tracks?.length>0 && <TrackPlayerFooter />
+      }
+      
     </View>
   )
 }

@@ -6,19 +6,23 @@
  */
 
 import React, { useEffect } from 'react';
-import { SafeAreaView,StyleSheet ,Text} from 'react-native';
+import { SafeAreaView,StyleSheet} from 'react-native';
 import RootNavigator from "./src/navigator/RootNavigator"
 import { Provider } from 'react-redux';
 import {store,persistedStore} from "./src/redux/index"
 import TrackPlayer from 'react-native-track-player';
 import { PersistGate } from 'redux-persist/integration/react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import useRequestPermission from './src/hooks/useRequestPermission';
 function App(): React.JSX.Element {
-  
   const setupPlayer = async()=>{
     await TrackPlayer.setupPlayer({autoHandleInterruptions: true})
   }
+  const {checkPermission}= useRequestPermission()
+
+  
 useEffect(()=>{
+    checkPermission()
     setupPlayer()
 },[])
   return (

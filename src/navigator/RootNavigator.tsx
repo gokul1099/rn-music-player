@@ -4,13 +4,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import HomeContainer from "../screens/home/container"
 import PlayerContainer from "../screens/player/container"
 import SearchContainer from "../screens/search/container"
+import DownloadsContainer from "../screens/downloads/container"
 import { Theme } from "../utils/theme"
 import SearchIcons from "../assets/icons/SearchIcons"
-import { AppState, TouchableOpacity } from "react-native"
-import TrackPlayer,{isPlaying,useProgress,useActiveTrack,} from 'react-native-track-player';
+import { AppState, TouchableOpacity,View } from "react-native"
+import TrackPlayer,{isPlaying} from 'react-native-track-player';
 import { storeCurrentTrack } from "../redux/modules/localState/actions"
 import { useActions } from "../utils/useActions"
 import { useSelector } from "react-redux"
+import DownloadIcon from "../assets/icons/DownloadIcon"
 export default function RootNavigator(){
     const StackNavigator = createNativeStackNavigator() 
     const headerStyle={
@@ -44,6 +46,8 @@ export default function RootNavigator(){
             subscription.remove()
           }
     },[])
+
+  
     return(
         <NavigationContainer>
             <StackNavigator.Navigator>
@@ -53,9 +57,15 @@ export default function RootNavigator(){
                     headerStyle:{backgroundColor:Theme.colors.primary},
                     headerTitleStyle:{color:Theme.colors.white, fontSize:Theme.fontSize.primary, fontWeight:"bold"},
                     headerRight:()=>(
-                        <TouchableOpacity onPress={()=>navigation.navigate("Search")}>
-                            <SearchIcons height={"35"} width={"35"}/>
-                        </TouchableOpacity>
+                        <View style={{flexDirection:"row"}}>
+                             <TouchableOpacity style={{marginRight:10}} onPress={()=>navigation.navigate("Downloads")}>
+                                <DownloadIcon />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={()=>navigation.navigate("Search")}>
+                                <SearchIcons height={"35"} width={"35"}/>
+                            </TouchableOpacity>
+                        </View>
+                        
                     )
                 })}/>
                 <StackNavigator.Screen options={{
@@ -66,6 +76,10 @@ export default function RootNavigator(){
                     {headerTitle:"Search",headerStyle,
                     headerTitleStyle:{color:Theme.colors.white, fontSize:Theme.fontSize.primary, fontWeight:"bold"},
                     }} name="Search" component={SearchContainer}/>
+                <StackNavigator.Screen options={
+                    {headerTitle:"Downloads",headerStyle,
+                    headerTitleStyle:{color:Theme.colors.white, fontSize:Theme.fontSize.primary, fontWeight:"bold"},
+                    }} name="Downloads" component={DownloadsContainer}/>
             </StackNavigator.Navigator>
         </NavigationContainer>
     )

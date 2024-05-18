@@ -21,7 +21,6 @@ const PlayerControl = ({type}:PlayerControlInterface) => {
             await TrackPlayer.pause()
         }else{
             await TrackPlayer.play()
-            console.log("playing")
             const activeTrack = await TrackPlayer.getActiveTrack()
             const position = await TrackPlayer.getProgress()
             const index = await TrackPlayer.getActiveTrackIndex()
